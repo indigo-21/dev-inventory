@@ -23,6 +23,10 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Paginator::useBootstrapFive();
+        
+         if($this->app->environment('production')) {
+            \URL::forceScheme('https');
+        }
 
         Request::macro('breadcrumbs', function (){
             return new Breadcrumbs($this);
